@@ -5,8 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VlastniAPI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Label x:Name="Text" Content="Ahoj" FontSize="25" Margin="0,0,0,303"></Label>
-    </Grid>
+        Title="MainWindow" Height="450" Width="800"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+    <TabControl>
+        <TabItem Header="Přidání objednávky">
+            <Canvas>
+                <Label Content="Křestní" FontSize="20" Canvas.Left="10" Canvas.Top="15"></Label>
+                <TextBox x:Name="txtbox_krestni" HorizontalAlignment="Left" Height="49" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="250" FontSize="20" Canvas.Left="10" Canvas.Top="52"/>
+                <Button Content="Odeslat" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Height="67" Click="Button_Click" Canvas.Left="647" Canvas.Top="314"/>
+                <Label Content="Příjmení" FontSize="20" Canvas.Left="10" Canvas.Top="106"></Label>
+                <TextBox x:Name="txtbox_prijmeni" HorizontalAlignment="Left" Height="49" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="250" FontSize="20" Canvas.Left="10" Canvas.Top="143"/>
+                <Label Content="Cena" FontSize="20" Canvas.Left="10" Canvas.Top="201"/>
+                <TextBox x:Name="txtbox_cena" HorizontalAlignment="Left" Height="49" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="250" FontSize="20" Canvas.Left="10" Canvas.Top="238"/>
+                <Label Content="Adresa" FontSize="20" Canvas.Left="292" Canvas.Top="15"/>
+                <TextBox x:Name="txtbox_adresa" HorizontalAlignment="Left" Height="49" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="250" FontSize="20" Canvas.Left="292" Canvas.Top="52"/>
+                <Label Content="Telefon" FontSize="20" Canvas.Left="292" Canvas.Top="106"/>
+                <TextBox x:Name="txtbox_telefon" HorizontalAlignment="Left" Height="49" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="250" FontSize="20" Canvas.Left="292" Canvas.Top="143"/>
+
+
+            </Canvas>
+        </TabItem>
+        <TabItem Header="Výpis objednávek">
+            <Canvas>
+                <ListView x:Name="listview" Height="317"  Width="766" Canvas.Left="10" Canvas.Top="10">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="75" Header="ID" DisplayMemberBinding="{Binding Path=id}"  />
+                            <GridViewColumn Width="150" Header="Křestní" DisplayMemberBinding="{Binding Path=krestni}" />
+                            <GridViewColumn Width="150" Header="Prijmeni" DisplayMemberBinding="{Binding Path=prijmeni}" />
+                            <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Path=cena}" />
+                            <GridViewColumn Width="200" Header="Adresa" DisplayMemberBinding="{Binding Path=adresa}" />
+                            <GridViewColumn Width="200" Header="Telefon" DisplayMemberBinding="{Binding Path=telefon}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button Content="Výpis" Click="Button_Click_1" Canvas.Left="639" Canvas.Top="332" Height="49" Width="137"></Button>
+            </Canvas>
+        </TabItem>
+    </TabControl>
+
 </Window>
