@@ -15,7 +15,17 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}">
     <TabControl>
-        <TabItem Header="Přidání objednávky">
+        <TabItem Header="Přihlášení">
+            <Canvas>
+
+                <TextBlock TextWrapping="Wrap" Text="Email" Canvas.Left="342" Canvas.Top="44" FontWeight="Bold" FontSize="30" Height="43" Width="92"/>
+                <TextBox Text="ahoj@email.cz" x:Name="txtEmail" Height="59" Canvas.Left="229" TextWrapping="Wrap"  Canvas.Top="102" Width="295"/>
+                <TextBlock TextWrapping="Wrap" Text="Heslo" Canvas.Left="342" Canvas.Top="189" FontWeight="Bold" FontSize="30" Height="43" Width="96"/>
+                <PasswordBox x:Name="txtHeslo" Height="59" Canvas.Left="229" Canvas.Top="247" Width="296"></PasswordBox>
+                <Button Content="Button" Canvas.Left="315" Canvas.Top="328" Width="123" Click="Button_ClickPrihlaseni" Height="53"/>
+            </Canvas>
+        </TabItem>
+        <TabItem Header="Přidání objednávky" Visibility="Visible" x:Name="addTab">
             <Canvas>
                 <Label Content="Křestní" FontSize="20" Canvas.Left="10" Canvas.Top="15"></Label>
                 <TextBox x:Name="txtbox_krestni" HorizontalAlignment="Left" Height="49" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="250" FontSize="20" Canvas.Left="10" Canvas.Top="52"/>
@@ -32,21 +42,43 @@
 
             </Canvas>
         </TabItem>
-        <TabItem Header="Výpis objednávek">
+        <TabItem Header="Pridani 2" Visibility="Visible" x:Name="add2Tab">
+            <Canvas>
+                <Image Height="150" Canvas.Left="32" Canvas.Top="10" Width="150" Source="https://icon2.kisspng.com/20180325/rhw/kisspng-iphone-4-iphone-8-plus-iphone-5-iphone-x-iphone-apple-5ab72c725c8cd3.9515278215219539063791.jpg"/>
+                <Label Content="Iphone X" Canvas.Left="78" Canvas.Top="165"/>
+                <Button Content="Objednat" Canvas.Left="51" Canvas.Top="227" Width="112" Click="Button_Click_2"/>
+                <Label Content="20 000kč" Canvas.Left="78" Canvas.Top="196"/>
+
+            </Canvas>
+        </TabItem>
+        <TabItem Header="Výpis objednávek" x:Name="vypisTab" Visibility="Visible">
             <Canvas>
                 <ListView x:Name="listview" Height="317"  Width="766" Canvas.Left="10" Canvas.Top="10">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Width="75" Header="ID" DisplayMemberBinding="{Binding Path=id}"  />
+
                             <GridViewColumn Width="150" Header="Křestní" DisplayMemberBinding="{Binding Path=krestni}" />
                             <GridViewColumn Width="150" Header="Prijmeni" DisplayMemberBinding="{Binding Path=prijmeni}" />
                             <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Path=cena}" />
-                            <GridViewColumn Width="200" Header="Adresa" DisplayMemberBinding="{Binding Path=adresa}" />
-                            <GridViewColumn Width="200" Header="Telefon" DisplayMemberBinding="{Binding Path=telefon}" />
+                            <GridViewColumn Width="100" Header="Telefon" DisplayMemberBinding="{Binding Path=telefon}"  />
                         </GridView>
                     </ListView.View>
                 </ListView>
                 <Button Content="Výpis" Click="Button_Click_1" Canvas.Left="639" Canvas.Top="332" Height="49" Width="137"></Button>
+            </Canvas>
+        </TabItem>
+        <TabItem Header="Uprava uživatele">
+            <Canvas>
+                <Label Content="Křestní" Canvas.Left="10" Canvas.Top="10" FontSize="20"/>
+                <TextBox x:Name="eKrestni" Height="35" Canvas.Left="10" TextWrapping="Wrap" Text="" Canvas.Top="44" Width="299" FontSize="15"/>
+                <Label Content="Příjmení" Canvas.Left="10" Canvas.Top="101" FontSize="20"/>
+                <TextBox x:Name="ePrijmeni" Height="35" Canvas.Left="10" TextWrapping="Wrap" Text="" Canvas.Top="135" Width="299" FontSize="15"/>
+                <Label Content="Telefon" Canvas.Left="10" Canvas.Top="192" FontSize="20"/>
+                <TextBox x:Name="eTelefon" Height="35" Canvas.Left="10" TextWrapping="Wrap" Text="" Canvas.Top="226" Width="299" FontSize="15"/>
+                <Label Content="E-Mail" Canvas.Left="10" Canvas.Top="274" FontSize="20"/>
+                <TextBox x:Name="eEmail" Height="35" Canvas.Left="10" TextWrapping="Wrap" Text="" Canvas.Top="308" Width="299" FontSize="15"/>
+                <Button Content="Aktualizovat" Canvas.Left="656" Canvas.Top="335" Width="120" Height="46"/>
+
             </Canvas>
         </TabItem>
     </TabControl>
