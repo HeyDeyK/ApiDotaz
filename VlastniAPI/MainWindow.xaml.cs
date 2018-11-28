@@ -114,6 +114,7 @@ namespace VlastniAPI
         public void UserSet()
         {
             Uzivatel.email = "ahoj@email.cz";
+            Uzivatel.ID = "1";
             Uzivatel.krestni = "Ondrej";
             Uzivatel.prijmeni = "Vileta";
             Uzivatel.telefon = "721 079 524";
@@ -152,8 +153,8 @@ namespace VlastniAPI
             // Data, která se přidají k POST dotazu -> klíč je typu string a data jsou typu string
             var keyValues = new List<KeyValuePair<string, string>>();
             keyValues.Add(new KeyValuePair<string, string>("typ", "prihlaseni"));
-            keyValues.Add(new KeyValuePair<string, string>("email", "ahoj"));
-            keyValues.Add(new KeyValuePair<string, string>("heslo", "ahoj"));
+            keyValues.Add(new KeyValuePair<string, string>("email", txtEmail.Text));
+            keyValues.Add(new KeyValuePair<string, string>("heslo", txtHeslo.Password));
             // Přidání dat do dotazu
             request.Content = new FormUrlEncodedContent(keyValues);
             // Zaslání POST dotazu
@@ -161,18 +162,25 @@ namespace VlastniAPI
             // Získání odpovědi
             string responseContent = await response.Content.ReadAsStringAsync();
             Console.WriteLine(responseContent);
-            if (txtHeslo.Password == "ahoj")
+            if (responseContent != "[]")
             {
                 
                 Console.WriteLine("Prihlasen");
                 addTab.Visibility = Visibility.Visible;
                 vypisTab.Visibility = Visibility.Visible;
                 add2Tab.Visibility = Visibility.Visible;
-                UserSet();
+                List<Uzivatel> osoba = JsonConvert.DeserializeObject<List<Uzivatel>>(responseContent);
+                Console.WriteLine(osoba[0].ID);
+                Uzivatel.email = osoba[0].email;
+                Uzivatel.ID = osoba[0].ID;
+                Uzivatel.krestni = osoba[0].krestni;
+                Uzivatel.prijmeni = osoba[0].prijmeni;
+                Uzivatel.telefon = osoba[0].telefon;
+                //UserSet();
             }
-            else
+            else // žádný výsledek při prihlášení
             {
-                Console.WriteLine("Nic");
+
             }
         }
 
@@ -194,6 +202,36 @@ namespace VlastniAPI
             var response = await client.SendAsync(request);
             // Získání odpovědi
             string responseContent = await response.Content.ReadAsStringAsync();
+        }
+
+        private async void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, "https://student.sps-prosek.cz/~vileton15/api.php");
+            // Data, která se přidají k POST dotazu -> klíč je typu string a data jsou typu string
+            var keyValues = new List<KeyValuePair<string, string>>();
+            keyValues.Add(new KeyValuePair<string, string>("typ", "edit"));
+            keyValues.Add(new KeyValuePair<string, string>("id", Uzivatel.ID));
+            keyValues.Add(new KeyValuePair<string, string>("krestni", eKrestni.Text));
+            keyValues.Add(new KeyValuePair<string, string>("prijmeni", ePrijmeni.Text));
+            keyValues.Add(new KeyValuePair<string, string>("telefon", eTelefon.Text));
+            keyValues.Add(new KeyValuePair<string, string>("email", eEmail.Text));
+            // Přidání dat do dotazu
+            request.Content = new FormUrlEncodedContent(keyValues);
+            // Zaslání POST dotazu
+            var response = await client.SendAsync(request);
+            // Získání odpovědi
+            string responseContent = await response.Content.ReadAsStringAsync();
+        }
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (tabEdit.IsSelected)
+            {
+                eKrestni.Text = Uzivatel.krestni;
+                ePrijmeni.Text = Uzivatel.prijmeni;
+                eTelefon.Text = Uzivatel.telefon;
+                eEmail.Text = Uzivatel.email;
+            }
         }
     }
 }

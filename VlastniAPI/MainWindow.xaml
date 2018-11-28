@@ -14,12 +14,12 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}">
-    <TabControl>
-        <TabItem Header="Přihlášení">
+    <TabControl SelectionChanged="TabControl_SelectionChanged">
+        <TabItem Header="Přihlášení" x:Name="tabLogin">
             <Canvas>
 
                 <TextBlock TextWrapping="Wrap" Text="Email" Canvas.Left="342" Canvas.Top="44" FontWeight="Bold" FontSize="30" Height="43" Width="92"/>
-                <TextBox Text="ahoj@email.cz" x:Name="txtEmail" Height="59" Canvas.Left="229" TextWrapping="Wrap"  Canvas.Top="102" Width="295"/>
+                <TextBox Text="ahoj" x:Name="txtEmail" Height="59" Canvas.Left="229" TextWrapping="Wrap"  Canvas.Top="102" Width="295"/>
                 <TextBlock TextWrapping="Wrap" Text="Heslo" Canvas.Left="342" Canvas.Top="189" FontWeight="Bold" FontSize="30" Height="43" Width="96"/>
                 <PasswordBox x:Name="txtHeslo" Height="59" Canvas.Left="229" Canvas.Top="247" Width="296"></PasswordBox>
                 <Button Content="Button" Canvas.Left="315" Canvas.Top="328" Width="123" Click="Button_ClickPrihlaseni" Height="53"/>
@@ -67,7 +67,7 @@
                 <Button Content="Výpis" Click="Button_Click_1" Canvas.Left="639" Canvas.Top="332" Height="49" Width="137"></Button>
             </Canvas>
         </TabItem>
-        <TabItem Header="Uprava uživatele">
+        <TabItem Header="Uprava uživatele" x:Name="tabEdit">
             <Canvas>
                 <Label Content="Křestní" Canvas.Left="10" Canvas.Top="10" FontSize="20"/>
                 <TextBox x:Name="eKrestni" Height="35" Canvas.Left="10" TextWrapping="Wrap" Text="" Canvas.Top="44" Width="299" FontSize="15"/>
@@ -77,7 +77,7 @@
                 <TextBox x:Name="eTelefon" Height="35" Canvas.Left="10" TextWrapping="Wrap" Text="" Canvas.Top="226" Width="299" FontSize="15"/>
                 <Label Content="E-Mail" Canvas.Left="10" Canvas.Top="274" FontSize="20"/>
                 <TextBox x:Name="eEmail" Height="35" Canvas.Left="10" TextWrapping="Wrap" Text="" Canvas.Top="308" Width="299" FontSize="15"/>
-                <Button Content="Aktualizovat" Canvas.Left="656" Canvas.Top="335" Width="120" Height="46"/>
+                <Button Content="Aktualizovat" Canvas.Left="656" Canvas.Top="335" Width="120" Height="46" Click="Button_Click_3"/>
 
             </Canvas>
         </TabItem>
