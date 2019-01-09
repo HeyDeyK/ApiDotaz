@@ -24,6 +24,7 @@ namespace VlastniAPI
     public partial class MainWindow : Window
     {
         Uzivatel Uzivatel = new Uzivatel();
+        List<Produkt> kosik = new List<Produkt>();
         public MainWindow()
         {
             InitializeComponent();
@@ -88,7 +89,7 @@ namespace VlastniAPI
 
             //Text.Content = joke;
         }
-        public async void Save()
+        public void Save()
         {
             Person person = new Person
             {
@@ -111,16 +112,7 @@ namespace VlastniAPI
         {
             Send();
         }
-        public void UserSet()
-        {
-            Uzivatel.email = "ahoj@email.cz";
-            Uzivatel.ID = "1";
-            Uzivatel.krestni = "Ondrej";
-            Uzivatel.prijmeni = "Vileta";
-            Uzivatel.telefon = "721 079 524";
-            
-        }
-        private async void Button_Click_1(object sender, RoutedEventArgs e)
+        private async void Button_Click_1(object sender, RoutedEventArgs e) // Výpis objednávek
         {
             listview.Items.Clear();
             var client = new HttpClient();
@@ -128,7 +120,7 @@ namespace VlastniAPI
             // Data, která se přidají k POST dotazu -> klíč je typu string a data jsou typu string
             var keyValues = new List<KeyValuePair<string, string>>();
             keyValues.Add(new KeyValuePair<string, string>("typ", "vypis"));
-            keyValues.Add(new KeyValuePair<string, string>("iduser", "1"));
+            keyValues.Add(new KeyValuePair<string, string>("iduser", Uzivatel.ID));
             // Přidání dat do dotazu
             request.Content = new FormUrlEncodedContent(keyValues);
             // Zaslání POST dotazu
@@ -146,27 +138,26 @@ namespace VlastniAPI
                 listview.Items.Add(item);
             }      
         }
-        private async void Button_ClickPrihlaseni(object sender, RoutedEventArgs e)
+        private async void Button_ClickPrihlaseni(object sender, RoutedEventArgs e) // Prihlaseni 
         {
             var client = new HttpClient();
             var request = new HttpRequestMessage(HttpMethod.Post, "https://student.sps-prosek.cz/~vileton15/api.php");
-            // Data, která se přidají k POST dotazu -> klíč je typu string a data jsou typu string
+
             var keyValues = new List<KeyValuePair<string, string>>();
             keyValues.Add(new KeyValuePair<string, string>("typ", "prihlaseni"));
             keyValues.Add(new KeyValuePair<string, string>("email", txtEmail.Text));
             keyValues.Add(new KeyValuePair<string, string>("heslo", txtHeslo.Password));
-            // Přidání dat do dotazu
+
             request.Content = new FormUrlEncodedContent(keyValues);
-            // Zaslání POST dotazu
             var response = await client.SendAsync(request);
-            // Získání odpovědi
             string responseContent = await response.Content.ReadAsStringAsync();
-            Console.WriteLine(responseContent);
+
+            
             if (responseContent != "[]")
             {
                 
                 Console.WriteLine("Prihlasen");
-                addTab.Visibility = Visibility.Visible;
+                //addTab.Visibility = Visibility.Visible;
                 vypisTab.Visibility = Visibility.Visible;
                 add2Tab.Visibility = Visibility.Visible;
                 List<Uzivatel> osoba = JsonConvert.DeserializeObject<List<Uzivatel>>(responseContent);
@@ -176,7 +167,6 @@ namespace VlastniAPI
                 Uzivatel.krestni = osoba[0].krestni;
                 Uzivatel.prijmeni = osoba[0].prijmeni;
                 Uzivatel.telefon = osoba[0].telefon;
-                //UserSet();
             }
             else // žádný výsledek při prihlášení
             {
@@ -223,6 +213,44 @@ namespace VlastniAPI
             // Získání odpovědi
             string responseContent = await response.Content.ReadAsStringAsync();
         }
+        private async void Button_Click_Registrace(object sender, RoutedEventArgs e)
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, "https://student.sps-prosek.cz/~vileton15/api.php");
+            // Data, která se přidají k POST dotazu -> klíč je typu string a data jsou typu string
+            var keyValues = new List<KeyValuePair<string, string>>();
+            keyValues.Add(new KeyValuePair<string, string>("typ", "registrace"));
+            keyValues.Add(new KeyValuePair<string, string>("krestni", regKrestni.Text));
+            keyValues.Add(new KeyValuePair<string, string>("prijmeni", regPrijmeni.Text));
+            keyValues.Add(new KeyValuePair<string, string>("telefon", regTelefon.Text));
+            keyValues.Add(new KeyValuePair<string, string>("email", regEmail.Text));
+            keyValues.Add(new KeyValuePair<string, string>("heslo", regHeslo.Text));
+            // Přidání dat do dotazu
+            request.Content = new FormUrlEncodedContent(keyValues);
+            // Zaslání POST dotazu
+            var response = await client.SendAsync(request);
+            // Získání odpovědi
+            string responseContent = await response.Content.ReadAsStringAsync();
+        }
+        private void Button_Click_Kosik(object sender, RoutedEventArgs e) // vypis kosiku
+        {
+            listviewKosik.Items.Clear();
+            foreach (var item in kosik)
+            {
+                listviewKosik.Items.Add(item);
+            }
+        }
+        private void Button_Click_AddToKosik(object sender, RoutedEventArgs e) // vypis kosiku
+        {
+            Produkt produkt = new Produkt
+            {
+                nazev = "Iphone X",
+                cena = 500
+            };
+            kosik.Add(produkt);
+        }
+
+
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (tabEdit.IsSelected)

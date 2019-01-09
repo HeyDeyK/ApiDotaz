@@ -8,7 +8,7 @@ namespace VlastniAPI
 {
     class Uzivatel
     {
-        public string ID { get; set; } = "1";
+        public string ID { get; set; } = "0";
         public string krestni { get; set; }
         public string prijmeni { get; set; }
         public string email { get; set; }
