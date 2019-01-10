@@ -45,19 +45,48 @@
 
             </Canvas>
         </TabItem>
-        <TabItem Header="Produkty" Visibility="Visible" x:Name="add2Tab">
-            <Canvas>
-                <Image Height="150" Canvas.Left="32" Canvas.Top="10" Width="150" Source="https://icon2.kisspng.com/20180325/rhw/kisspng-iphone-4-iphone-8-plus-iphone-5-iphone-x-iphone-apple-5ab72c725c8cd3.9515278215219539063791.jpg"/>
-                <Label Content="Iphone X" Canvas.Left="78" Canvas.Top="165"/>
-                <Button Content="Objednat" Canvas.Left="51" Canvas.Top="227" Width="112" Click="Button_Click_2"/>
-                <Label Content="20 000kč" Canvas.Left="78" Canvas.Top="196"/>
+        <TabItem Header="Produkty" Visibility="Visible" x:Name="add2Tab" >
+            <ScrollViewer HorizontalAlignment="Stretch">
+                <Canvas Height="700">
+                    <Image Height="150" Canvas.Left="83" Canvas.Top="13" Width="150" Source="https://icon2.kisspng.com/20180325/rhw/kisspng-iphone-4-iphone-8-plus-iphone-5-iphone-x-iphone-apple-5ab72c725c8cd3.9515278215219539063791.jpg"/>
+                    <Label HorizontalContentAlignment="Center" Width="150" Content="Apple iPhone X" Canvas.Left="83" Canvas.Top="168"/>
+                    <Button Content="Do košíku" Canvas.Left="102" Canvas.Top="230" Width="112" Click="Button_Click_AddToKosik" CommandParameter="1"/>
+                    <Label Width="150" HorizontalContentAlignment="Center" Content="32 000kč" Canvas.Left="83" Canvas.Top="199"/>
+                    <Image Height="150" Canvas.Left="238" Canvas.Top="13" Width="150" Source="https://staticshop.o2.co.uk/product/images/samsung_galaxy_s9_64gb_black_sku_header.png?cb=2d5f3cefdd7ecc08b3aa71c58896c0a3"/>
+                    <Label HorizontalContentAlignment="Center" Width="150" Content="Samsung Galaxy S9" Canvas.Left="238" Canvas.Top="168"/>
+                    <Button Content="Do košíku" Canvas.Left="257" Canvas.Top="230" Width="112" Click="Button_Click_AddToKosik" CommandParameter="2"/>
+                    <Label Width="150" HorizontalContentAlignment="Center" Content="30 000kč" Canvas.Left="238" Canvas.Top="199"/>
+                    <Image Height="150" Canvas.Left="393" Canvas.Top="13" Width="150" Source="http://d26lpennugtm8s.cloudfront.net/stores/361/025/products/gow2018-ps41-6f5715bf243a9c7a2115243149131644-640-0.jpg"/>
+                    <Label HorizontalContentAlignment="Center" Width="150" Content="God of War PS4" Canvas.Left="393" Canvas.Top="168"/>
+                    <Button Content="Do košíku" Canvas.Left="412" Canvas.Top="230" Width="112" Click="Button_Click_AddToKosik" CommandParameter="3"/>
+                    <Label Width="150" HorizontalContentAlignment="Center" Content="1 200kč" Canvas.Left="393" Canvas.Top="199"/>
+                    <Image Height="150" Canvas.Left="548" Canvas.Top="13" Width="150" Source="https://www.nvidia.com/content/dam/en-zz/Solutions/geforce/geforce-rtx-turing/tech-shots/geforce-rtx-2070-web-tech-shot-630-u@2x.png"/>
+                    <Label HorizontalContentAlignment="Center" Width="150" Content="MSI GeForce RTX 2070" Canvas.Left="548" Canvas.Top="168"/>
+                    <Button Content="Do košíku" Canvas.Left="567" Canvas.Top="230" Width="112" Click="Button_Click_AddToKosik" CommandParameter="4"/>
+                    <Label Width="150" HorizontalContentAlignment="Center" Content="13 990kč" Canvas.Left="548" Canvas.Top="199"/>
+                    <Image Height="150" Canvas.Left="83" Canvas.Top="302" Width="150" Source="https://icon2.kisspng.com/20180325/rhw/kisspng-iphone-4-iphone-8-plus-iphone-5-iphone-x-iphone-apple-5ab72c725c8cd3.9515278215219539063791.jpg"/>
+                    <Label HorizontalContentAlignment="Center" Width="150" Content="Iphone X" Canvas.Left="83" Canvas.Top="457"/>
+                    <Button Content="Do košíku" Canvas.Left="102" Canvas.Top="519" Width="112" Click="Button_Click_AddToKosik" CommandParameter="5"/>
+                    <Label Width="150" HorizontalContentAlignment="Center" Content="20 000kč" Canvas.Left="83" Canvas.Top="488"/>
+                    <Image Height="150" Canvas.Left="238" Canvas.Top="302" Width="150" Source="https://icon2.kisspng.com/20180325/rhw/kisspng-iphone-4-iphone-8-plus-iphone-5-iphone-x-iphone-apple-5ab72c725c8cd3.9515278215219539063791.jpg"/>
+                    <Label HorizontalContentAlignment="Center" Width="150" Content="Iphone X" Canvas.Left="238" Canvas.Top="457"/>
+                    <Button Content="Do košíku" Canvas.Left="257" Canvas.Top="519" Width="112" Click="Button_Click_AddToKosik" CommandParameter="6"/>
+                    <Label Width="150" HorizontalContentAlignment="Center" Content="20 000kč" Canvas.Left="238" Canvas.Top="488"/>
+                    <Image Height="150" Canvas.Left="393" Canvas.Top="302" Width="150" Source="https://icon2.kisspng.com/20180325/rhw/kisspng-iphone-4-iphone-8-plus-iphone-5-iphone-x-iphone-apple-5ab72c725c8cd3.9515278215219539063791.jpg"/>
+                    <Label HorizontalContentAlignment="Center" Width="150" Content="Iphone X" Canvas.Left="393" Canvas.Top="457"/>
+                    <Button Content="Do košíku" Canvas.Left="412" Canvas.Top="519" Width="112" Click="Button_Click_AddToKosik" CommandParameter="7"/>
+                    <Label Width="150" HorizontalContentAlignment="Center" Content="20 000kč" Canvas.Left="393" Canvas.Top="488"/>
+                    <Image Height="150" Canvas.Left="548" Canvas.Top="302" Width="150" Source="https://icon2.kisspng.com/20180325/rhw/kisspng-iphone-4-iphone-8-plus-iphone-5-iphone-x-iphone-apple-5ab72c725c8cd3.9515278215219539063791.jpg"/>
+                    <Label HorizontalContentAlignment="Center" Width="150" Content="Iphone X" Canvas.Left="548" Canvas.Top="457"/>
+                    <Button Content="Do košíku" Canvas.Left="567" Canvas.Top="519" Width="112" Click="Button_Click_AddToKosik" CommandParameter="8"/>
+                    <Label Width="150" HorizontalContentAlignment="Center" Content="20 000kč" Canvas.Left="548" Canvas.Top="488"/>
 
-                <Image Height="150" Canvas.Left="188" Canvas.Top="10" Width="150" Source="https://icon2.kisspng.com/20180325/rhw/kisspng-iphone-4-iphone-8-plus-iphone-5-iphone-x-iphone-apple-5ab72c725c8cd3.9515278215219539063791.jpg"/>
-                <Label Content="Iphone X" Canvas.Left="234" Canvas.Top="165"/>
-                <Button Content="Objednat" Canvas.Left="207" Canvas.Top="227" Width="112" Click="Button_Click_AddToKosik"/>
-                <Label Content="20 000kč" Canvas.Left="234" Canvas.Top="196"/>
-                <local:CustomControl1></local:CustomControl1>
-            </Canvas>
+
+
+
+                </Canvas>
+            </ScrollViewer>
+
         </TabItem>
         <TabItem Header="Výpis objednávek" x:Name="vypisTab" Visibility="Visible">
             <Canvas>
@@ -75,9 +104,9 @@
                 <Button Content="Výpis" Click="Button_Click_1" Canvas.Left="639" Canvas.Top="332" Height="49" Width="137"></Button>
             </Canvas>
         </TabItem>
-        <TabItem Header="Košík">
+        <TabItem Header="Košík" x:Name="tabKosik">
             <Canvas>
-                <ListView x:Name="listviewKosik" Height="317"  Width="766" Canvas.Left="10" Canvas.Top="10">
+                <ListView x:Name="listviewKosik" Height="317"  Width="766" Canvas.Left="10" Canvas.Top="10" SelectionChanged="ListviewKosik_SelectionChanged">
                     <ListView.View>
                         <GridView>
 
@@ -86,7 +115,8 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <Button Content="Výpis" Click="Button_Click_Kosik" Canvas.Left="639" Canvas.Top="332" Height="49" Width="137"></Button>
+                <TextBlock x:Name="kosikCena" Text="0 korun českoniggerských" FontSize="30" Canvas.Left="24" Canvas.Top="334"></TextBlock>
+                <Button Content="Objednat" Click="Button_Click_Kosik" Canvas.Left="639" Canvas.Top="332" Height="49" Width="137"></Button>
             </Canvas>
         </TabItem>
         <TabItem Header="Uprava uživatele" x:Name="tabEdit">

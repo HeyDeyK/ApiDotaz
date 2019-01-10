@@ -137,6 +137,7 @@ namespace VlastniAPI
             {
                 listview.Items.Add(item);
             }      
+
         }
         private async void Button_ClickPrihlaseni(object sender, RoutedEventArgs e) // Prihlaseni 
         {
@@ -234,20 +235,68 @@ namespace VlastniAPI
         }
         private void Button_Click_Kosik(object sender, RoutedEventArgs e) // vypis kosiku
         {
+            
+        }
+        public void OdeberKosik()
+        {
+
+        }
+        public void CalKosik()
+        {
+            int hodnotaKosik = 0;
             listviewKosik.Items.Clear();
             foreach (var item in kosik)
             {
                 listviewKosik.Items.Add(item);
+                hodnotaKosik += item.cena;
             }
+            kosikCena.Text = hodnotaKosik + " korun českoniggerských";
         }
         private void Button_Click_AddToKosik(object sender, RoutedEventArgs e) // vypis kosiku
         {
-            Produkt produkt = new Produkt
+            Produkt produkt = new Produkt();
+            if((sender as Button).CommandParameter.ToString() == "1")
             {
-                nazev = "Iphone X",
-                cena = 500
-            };
+                produkt.nazev = "Apple iPhone X";
+                produkt.cena = 32000;
+            }
+            else if((sender as Button).CommandParameter.ToString() == "2")
+            {
+                produkt.nazev = "Samsung Galaxy S9";
+                produkt.cena = 30000;
+            }
+            else if ((sender as Button).CommandParameter.ToString() == "3")
+            {
+                produkt.nazev = "God of War PS4";
+                produkt.cena = 1200;
+            }
+            else if ((sender as Button).CommandParameter.ToString() == "4")
+            {
+                produkt.nazev = "MSI GeForce RTX 2070";
+                produkt.cena = 13990;
+            }
+            else if ((sender as Button).CommandParameter.ToString() == "5")
+            {
+                produkt.nazev = "";
+                produkt.cena = 32000;
+            }
+            else if ((sender as Button).CommandParameter.ToString() == "6")
+            {
+                produkt.nazev = "";
+                produkt.cena = 32000;
+            }
+            else if ((sender as Button).CommandParameter.ToString() == "7")
+            {
+                produkt.nazev = "";
+                produkt.cena = 32000;
+            }
+            else if ((sender as Button).CommandParameter.ToString() == "8")
+            {
+                produkt.nazev = "";
+                produkt.cena = 32000;
+            }
             kosik.Add(produkt);
+
         }
 
 
@@ -260,6 +309,20 @@ namespace VlastniAPI
                 eTelefon.Text = Uzivatel.telefon;
                 eEmail.Text = Uzivatel.email;
             }
+            else if(tabKosik.IsSelected)
+            {
+                listviewKosik.Items.Clear();
+                CalKosik();
+            }
+        }
+
+        private void ListviewKosik_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //Console.WriteLine((sender as ListView).SelectedItem);
+            Console.WriteLine(listviewKosik.SelectedItem);
+            kosik.Remove(listviewKosik.SelectedItem as Produkt);
+            CalKosik();
+            
         }
     }
 }
