@@ -2,19 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace VlastniAPI
 {
@@ -25,6 +15,7 @@ namespace VlastniAPI
     {
         Uzivatel Uzivatel = new Uzivatel();
         List<Produkt> kosik = new List<Produkt>();
+        List<string> kosikcisla = new List<string>();
         public MainWindow()
         {
             InitializeComponent();
@@ -161,6 +152,10 @@ namespace VlastniAPI
                 //addTab.Visibility = Visibility.Visible;
                 vypisTab.Visibility = Visibility.Visible;
                 add2Tab.Visibility = Visibility.Visible;
+                tabEdit.Visibility = Visibility.Visible;
+                tabKosik.Visibility = Visibility.Visible;
+                tabRegistrace.Width = 0;
+                tabRegistrace.Visibility = Visibility.Hidden;
                 List<Uzivatel> osoba = JsonConvert.DeserializeObject<List<Uzivatel>>(responseContent);
                 Console.WriteLine(osoba[0].ID);
                 Uzivatel.email = osoba[0].email;
@@ -207,6 +202,11 @@ namespace VlastniAPI
             keyValues.Add(new KeyValuePair<string, string>("prijmeni", ePrijmeni.Text));
             keyValues.Add(new KeyValuePair<string, string>("telefon", eTelefon.Text));
             keyValues.Add(new KeyValuePair<string, string>("email", eEmail.Text));
+            keyValues.Add(new KeyValuePair<string, string>("heslo", eHeslo.Text));
+            Uzivatel.krestni = eKrestni.Text;
+            Uzivatel.prijmeni = ePrijmeni.Text;
+            Uzivatel.telefon = eTelefon.Text;
+            Uzivatel.email = eEmail.Text;
             // Přidání dat do dotazu
             request.Content = new FormUrlEncodedContent(keyValues);
             // Zaslání POST dotazu
@@ -214,6 +214,15 @@ namespace VlastniAPI
             // Získání odpovědi
             string responseContent = await response.Content.ReadAsStringAsync();
         }
+        private void Button_ChangePrihlaseni(object sender, RoutedEventArgs e)
+        {
+            tabLogin.IsSelected = true;
+        }
+        private void Button_ChangeRegistrace(object sender, RoutedEventArgs e)
+        {
+            tabRegistrace.IsSelected = true;
+        }
+
         private async void Button_Click_Registrace(object sender, RoutedEventArgs e)
         {
             var client = new HttpClient();
@@ -232,10 +241,43 @@ namespace VlastniAPI
             var response = await client.SendAsync(request);
             // Získání odpovědi
             string responseContent = await response.Content.ReadAsStringAsync();
+            tabLogin.IsSelected = true;
+
+
         }
-        private void Button_Click_Kosik(object sender, RoutedEventArgs e) // vypis kosiku
+        private async void Button_Click_Kosik(object sender, RoutedEventArgs e) // Objednat věci z košíku
         {
-            
+            int hodnotaKosik = 0;
+            foreach (var item in kosik)
+            {
+                hodnotaKosik += item.cena;
+            }
+            string cislaitemu="";
+            foreach(var item in kosikcisla)
+            {
+                cislaitemu = cislaitemu  + item + ";";
+            }
+            Console.WriteLine(cislaitemu + "  CENA:"+ hodnotaKosik);
+            string dnesniDatum = DateTime.Now.ToString("M/d/yyyy");
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, "https://student.sps-prosek.cz/~vileton15/api.php");
+            // Data, která se přidají k POST dotazu -> klíč je typu string a data jsou typu string
+            var keyValues = new List<KeyValuePair<string, string>>();
+            keyValues.Add(new KeyValuePair<string, string>("typ", "kosik"));
+            keyValues.Add(new KeyValuePair<string, string>("iduser", Uzivatel.ID));
+            keyValues.Add(new KeyValuePair<string, string>("polozky", cislaitemu));
+            keyValues.Add(new KeyValuePair<string, string>("datum", dnesniDatum));
+            keyValues.Add(new KeyValuePair<string, string>("cena", hodnotaKosik.ToString()));
+            // Přidání dat do dotazu
+            request.Content = new FormUrlEncodedContent(keyValues);
+            // Zaslání POST dotazu
+            var response = await client.SendAsync(request);
+            // Získání odpovědi
+            string responseContent = await response.Content.ReadAsStringAsync();
+            listviewKosik.Items.Clear();
+            hodnotaKosik = 0;
+            kosik.Clear();
+            kosikCena.Text = hodnotaKosik + " korun českých";
         }
         public void OdeberKosik()
         {
@@ -250,7 +292,7 @@ namespace VlastniAPI
                 listviewKosik.Items.Add(item);
                 hodnotaKosik += item.cena;
             }
-            kosikCena.Text = hodnotaKosik + " korun českoniggerských";
+            kosikCena.Text = hodnotaKosik + " korun českých";
         }
         private void Button_Click_AddToKosik(object sender, RoutedEventArgs e) // vypis kosiku
         {
@@ -259,49 +301,133 @@ namespace VlastniAPI
             {
                 produkt.nazev = "Apple iPhone X";
                 produkt.cena = 32000;
+                kosikcisla.Add("1");
             }
             else if((sender as Button).CommandParameter.ToString() == "2")
             {
                 produkt.nazev = "Samsung Galaxy S9";
                 produkt.cena = 30000;
+                kosikcisla.Add("2");
             }
             else if ((sender as Button).CommandParameter.ToString() == "3")
             {
                 produkt.nazev = "God of War PS4";
                 produkt.cena = 1200;
+                kosikcisla.Add("3");
             }
             else if ((sender as Button).CommandParameter.ToString() == "4")
             {
                 produkt.nazev = "MSI GeForce RTX 2070";
                 produkt.cena = 13990;
+                kosikcisla.Add("4");
             }
             else if ((sender as Button).CommandParameter.ToString() == "5")
             {
-                produkt.nazev = "";
-                produkt.cena = 32000;
+                produkt.nazev = "Sony Sluchátka";
+                produkt.cena = 800;
+                kosikcisla.Add("5");
             }
             else if ((sender as Button).CommandParameter.ToString() == "6")
             {
-                produkt.nazev = "";
-                produkt.cena = 32000;
+                produkt.nazev = "Zowie Myš";
+                produkt.cena = 1699;
+                kosikcisla.Add("6");
             }
             else if ((sender as Button).CommandParameter.ToString() == "7")
             {
-                produkt.nazev = "";
-                produkt.cena = 32000;
+                produkt.nazev = "16GB DDR4 RAM";
+                produkt.cena = 3899;
+                kosikcisla.Add("7");
             }
             else if ((sender as Button).CommandParameter.ToString() == "8")
             {
-                produkt.nazev = "";
-                produkt.cena = 32000;
+                produkt.nazev = "Studiový mikrofon";
+                produkt.cena = 2699;
+                kosikcisla.Add("8");
             }
             kosik.Add(produkt);
 
         }
+        public async void vypisObjednavky()
+        {
+            listview.Items.Clear();
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, "https://student.sps-prosek.cz/~vileton15/api.php");
+            // Data, která se přidají k POST dotazu -> klíč je typu string a data jsou typu string
+            var keyValues = new List<KeyValuePair<string, string>>();
+            keyValues.Add(new KeyValuePair<string, string>("typ", "vypis"));
+            keyValues.Add(new KeyValuePair<string, string>("iduser", Uzivatel.ID));
+            // Přidání dat do dotazu
+            request.Content = new FormUrlEncodedContent(keyValues);
+            // Zaslání POST dotazu
+            var response = await client.SendAsync(request);
+            // Získání odpovědi
+            string responseContent = await response.Content.ReadAsStringAsync();
 
+            // Získání odpovědi v Json
+            string json = await response.Content.ReadAsStringAsync();
+            List<Objednavka2> obj = JsonConvert.DeserializeObject<List<Objednavka2>>(json);
+
+            //dynamic c = JsonConvert.DeserializeObject<Person>(json);
+            foreach (var item in obj)
+            {
+                
+                string[] strArray = item.polozky.Split(';');
+                string PolozkyVypis = "";
+                string newNazev="";
+                int pocetProjeti = 1;
+                foreach(var polozka in strArray)
+                {
+                    if(strArray.Length == pocetProjeti)
+                    {
+                        break;
+                    }
+                    if(polozka=="1")
+                    {
+                        newNazev = "Apple iPhone X";
+                    }
+                    else if(polozka =="2")
+                    {
+                        newNazev = "Samsung Galaxy S9";
+                    }
+                    else if (polozka == "3")
+                    {
+                        newNazev = "God of War PS4";
+                    }
+                    else if (polozka == "4")
+                    {
+                        newNazev = "MSI GeForce RTX 2070";
+                    }
+                    else if (polozka == "5")
+                    {
+                        newNazev = "Sony Sluchátka";
+                    }
+                    else if (polozka == "6")
+                    {
+                        newNazev = "Zowie Myš";
+                    }
+                    else if (polozka == "7")
+                    {
+                        newNazev = "16GB DDR4 RAM";
+                    }
+                    else if (polozka == "8")
+                    {
+                        newNazev = "Studiový mikrofon";
+                    }
+                    PolozkyVypis = PolozkyVypis + newNazev + ", ";
+                    Console.WriteLine("druhy for");
+                    pocetProjeti++;
+                }
+                
+                item.polozky = PolozkyVypis;
+                listview.Items.Add(item);
+            }
+            
+        }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            Console.WriteLine("Tab changed");
             if (tabEdit.IsSelected)
             {
                 eKrestni.Text = Uzivatel.krestni;
@@ -313,6 +439,13 @@ namespace VlastniAPI
             {
                 listviewKosik.Items.Clear();
                 CalKosik();
+            }
+            else if(vypisTab.IsSelected)
+            {
+                listview.Items.Clear();
+                Console.WriteLine("vypistab selected");
+                vypisObjednavky();
+                listview.Items.Clear();
             }
         }
 

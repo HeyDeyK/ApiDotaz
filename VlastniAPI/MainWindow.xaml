@@ -18,11 +18,11 @@
     <TabControl SelectionChanged="TabControl_SelectionChanged">
         <TabItem Header="Přihlášení" x:Name="tabLogin">
             <Canvas Visibility="Visible">
-                <Button Content="Přihlášení" Canvas.Left="163" Canvas.Top="8" Width="200" Click="Button_ClickPrihlaseni" Height="53" Background="{x:Null}" Foreground="#DD000000" FontSize="36" FontWeight="Bold" BorderBrush="#00673AB7"/>
-                <Button Content="Registrace" Canvas.Left="384" Canvas.Top="8" Width="212" Click="Button_ClickPrihlaseni" Height="53" Background="{x:Null}" Foreground="#DD000000" FontSize="36" FontWeight="Normal" BorderBrush="#00000000"/>
+                <Button Content="Přihlášení" Canvas.Left="163" Canvas.Top="8" Width="200" Click="Button_ChangePrihlaseni" Height="53" Background="{x:Null}" Foreground="#DD000000" FontSize="36" FontWeight="Bold" BorderBrush="#00673AB7"/>
+                <Button Content="Registrace" Canvas.Left="384" Canvas.Top="8" Width="212" Click="Button_ChangeRegistrace" Height="53" Background="{x:Null}" Foreground="#DD000000" FontSize="36" FontWeight="Normal" BorderBrush="#00000000"/>
                 <TextBlock Text="|" TextWrapping="Wrap" FontWeight="Bold" FontSize="35" Canvas.Top="10" Canvas.Left="368" TextDecorations="{x:Null}"></TextBlock>
                 <TextBlock TextWrapping="Wrap" Text="Email" Canvas.Left="337" Canvas.Top="66" FontWeight="Bold" FontSize="30" Height="43" Width="79"/>
-                <TextBox Text="ahoj" x:Name="txtEmail" Height="59" Canvas.Left="224" TextWrapping="Wrap"  Canvas.Top="124" Width="295"/>
+                <TextBox Text="" x:Name="txtEmail" Height="59" Canvas.Left="224" TextWrapping="Wrap"  Canvas.Top="124" Width="295"/>
                 <TextBlock TextWrapping="Wrap" Text="Heslo" Canvas.Left="337" Canvas.Top="211" FontWeight="Bold" FontSize="30" Height="43" Width="96"/>
                 <PasswordBox x:Name="txtHeslo" Height="59" Canvas.Left="224" Canvas.Top="269" Width="296"></PasswordBox>
                 <Button Content="Přihlásit" Canvas.Left="653" Canvas.Top="329" Width="123" Click="Button_ClickPrihlaseni" Height="52"/>
@@ -31,21 +31,24 @@
         </TabItem>
         <TabItem Header="Registrace" x:Name="tabRegistrace">
             <Canvas Visibility="Visible">
-                <Label Content="Křestní" Canvas.Left="10" Canvas.Top="10" FontSize="20"/>
-                <TextBox x:Name="regKrestni" Height="35" Canvas.Left="10" TextWrapping="Wrap" Text="" Canvas.Top="44" Width="299" FontSize="15"/>
-                <Label Content="Příjmení" Canvas.Left="10" Canvas.Top="101" FontSize="20"/>
-                <TextBox x:Name="regPrijmeni" Height="35" Canvas.Left="10" TextWrapping="Wrap" Text="" Canvas.Top="135" Width="299" FontSize="15"/>
+                <Button Content="Přihlášení" Canvas.Left="163" Canvas.Top="8" Width="200" Click="Button_ChangePrihlaseni" Height="53" Background="{x:Null}" Foreground="#DD000000" FontSize="36" FontWeight="Normal" BorderBrush="#00673AB7"/>
+                <Button Content="Registrace" Canvas.Left="384" Canvas.Top="8" Width="212" Click="Button_ChangeRegistrace" Height="53" Background="{x:Null}" Foreground="#DD000000" FontSize="36" FontWeight="Bold" BorderBrush="#00000000"/>
+                <TextBlock Text="|" TextWrapping="Wrap" FontWeight="Bold" FontSize="35" Canvas.Top="10" Canvas.Left="368" TextDecorations="{x:Null}"></TextBlock>
+                <Label Content="Křestní" Canvas.Left="10" Canvas.Top="101" FontSize="20"/>
+                <TextBox x:Name="regKrestni" Height="35" Canvas.Left="10" TextWrapping="Wrap" Text="" Canvas.Top="135" Width="299" FontSize="15"/>
+                <Label Content="Příjmení" Canvas.Left="324" Canvas.Top="101" FontSize="20"/>
+                <TextBox x:Name="regPrijmeni" Height="35" Canvas.Left="324" TextWrapping="Wrap" Text="" Canvas.Top="135" Width="299" FontSize="15"/>
                 <Label Content="Telefon" Canvas.Left="10" Canvas.Top="192" FontSize="20"/>
                 <TextBox x:Name="regTelefon" Height="35" Canvas.Left="10" TextWrapping="Wrap" Text="" Canvas.Top="226" Width="299" FontSize="15"/>
                 <Label Content="E-Mail" Canvas.Left="10" Canvas.Top="274" FontSize="20"/>
                 <TextBox x:Name="regEmail" Height="35" Canvas.Left="10" TextWrapping="Wrap" Text="" Canvas.Top="308" Width="299" FontSize="15"/>
-                <Label Content="Heslo" Canvas.Left="324" Canvas.Top="274" FontSize="20"/>
-                <TextBox x:Name="regHeslo" Height="35" Canvas.Left="324" TextWrapping="Wrap" Text="" Canvas.Top="308" Width="299" FontSize="15"/>
+                <Label Content="Heslo" Canvas.Left="324" Canvas.Top="192" FontSize="20"/>
+                <TextBox x:Name="regHeslo" Height="35" Canvas.Left="324" TextWrapping="Wrap" Text="" Canvas.Top="226" Width="299" FontSize="15"/>
                 <Button Content="Registrovat" Canvas.Left="656" Canvas.Top="335" Width="120" Height="46" Click="Button_Click_Registrace"/>
 
             </Canvas>
         </TabItem>
-        <TabItem Header="Produkty" Visibility="Visible" x:Name="add2Tab" >
+        <TabItem Header="Produkty" Visibility="Hidden" x:Name="add2Tab" >
             <ScrollViewer HorizontalAlignment="Stretch">
                 <Canvas Height="700">
                     <Image Height="150" Canvas.Left="83" Canvas.Top="13" Width="150" Source="https://icon2.kisspng.com/20180325/rhw/kisspng-iphone-4-iphone-8-plus-iphone-5-iphone-x-iphone-apple-5ab72c725c8cd3.9515278215219539063791.jpg"/>
@@ -64,22 +67,22 @@
                     <Label HorizontalContentAlignment="Center" Width="150" Content="MSI GeForce RTX 2070" Canvas.Left="548" Canvas.Top="168"/>
                     <Button Content="Do košíku" Canvas.Left="567" Canvas.Top="230" Width="112" Click="Button_Click_AddToKosik" CommandParameter="4"/>
                     <Label Width="150" HorizontalContentAlignment="Center" Content="13 990kč" Canvas.Left="548" Canvas.Top="199"/>
-                    <Image Height="150" Canvas.Left="83" Canvas.Top="302" Width="150" Source="https://icon2.kisspng.com/20180325/rhw/kisspng-iphone-4-iphone-8-plus-iphone-5-iphone-x-iphone-apple-5ab72c725c8cd3.9515278215219539063791.jpg"/>
-                    <Label HorizontalContentAlignment="Center" Width="150" Content="Iphone X" Canvas.Left="83" Canvas.Top="457"/>
+                    <Image Height="150" Canvas.Left="83" Canvas.Top="302" Width="150" Source="http://assets.stickpng.com/thumbs/580b57fbd9996e24bc43bfbe.png"/>
+                    <Label HorizontalContentAlignment="Center" Width="150" Content="Sony Sluchátka" Canvas.Left="83" Canvas.Top="457"/>
                     <Button Content="Do košíku" Canvas.Left="102" Canvas.Top="519" Width="112" Click="Button_Click_AddToKosik" CommandParameter="5"/>
-                    <Label Width="150" HorizontalContentAlignment="Center" Content="20 000kč" Canvas.Left="83" Canvas.Top="488"/>
-                    <Image Height="150" Canvas.Left="238" Canvas.Top="302" Width="150" Source="https://icon2.kisspng.com/20180325/rhw/kisspng-iphone-4-iphone-8-plus-iphone-5-iphone-x-iphone-apple-5ab72c725c8cd3.9515278215219539063791.jpg"/>
-                    <Label HorizontalContentAlignment="Center" Width="150" Content="Iphone X" Canvas.Left="238" Canvas.Top="457"/>
+                    <Label Width="150" HorizontalContentAlignment="Center" Content="800kč" Canvas.Left="83" Canvas.Top="488"/>
+                    <Image Height="150" Canvas.Left="238" Canvas.Top="302" Width="150" Source="https://zowie.benq.com/content/dam/game/en/product/mouse/series-logo/series-ec-b-300x300.png"/>
+                    <Label HorizontalContentAlignment="Center" Width="150" Content="Zowie Myš" Canvas.Left="238" Canvas.Top="457"/>
                     <Button Content="Do košíku" Canvas.Left="257" Canvas.Top="519" Width="112" Click="Button_Click_AddToKosik" CommandParameter="6"/>
-                    <Label Width="150" HorizontalContentAlignment="Center" Content="20 000kč" Canvas.Left="238" Canvas.Top="488"/>
-                    <Image Height="150" Canvas.Left="393" Canvas.Top="302" Width="150" Source="https://icon2.kisspng.com/20180325/rhw/kisspng-iphone-4-iphone-8-plus-iphone-5-iphone-x-iphone-apple-5ab72c725c8cd3.9515278215219539063791.jpg"/>
-                    <Label HorizontalContentAlignment="Center" Width="150" Content="Iphone X" Canvas.Left="393" Canvas.Top="457"/>
+                    <Label Width="150" HorizontalContentAlignment="Center" Content="1 699kč" Canvas.Left="238" Canvas.Top="488"/>
+                    <Image Height="150" Canvas.Left="393" Canvas.Top="302" Width="150" Source="https://www.cyberpuerta.mx/out/pictures/master/category/icon/memoria-ram.png"/>
+                    <Label HorizontalContentAlignment="Center" Width="150" Content="16GB DDR4 RAM" Canvas.Left="393" Canvas.Top="457"/>
                     <Button Content="Do košíku" Canvas.Left="412" Canvas.Top="519" Width="112" Click="Button_Click_AddToKosik" CommandParameter="7"/>
-                    <Label Width="150" HorizontalContentAlignment="Center" Content="20 000kč" Canvas.Left="393" Canvas.Top="488"/>
-                    <Image Height="150" Canvas.Left="548" Canvas.Top="302" Width="150" Source="https://icon2.kisspng.com/20180325/rhw/kisspng-iphone-4-iphone-8-plus-iphone-5-iphone-x-iphone-apple-5ab72c725c8cd3.9515278215219539063791.jpg"/>
-                    <Label HorizontalContentAlignment="Center" Width="150" Content="Iphone X" Canvas.Left="548" Canvas.Top="457"/>
+                    <Label Width="150" HorizontalContentAlignment="Center" Content="3 899kč" Canvas.Left="393" Canvas.Top="488"/>
+                    <Image Height="150" Canvas.Left="548" Canvas.Top="302" Width="150" Source="http://www.stickpng.com/assets/images/580b57fbd9996e24bc43bfdb.png"/>
+                    <Label HorizontalContentAlignment="Center" Width="150" Content="Studiový mikrofon" Canvas.Left="548" Canvas.Top="457"/>
                     <Button Content="Do košíku" Canvas.Left="567" Canvas.Top="519" Width="112" Click="Button_Click_AddToKosik" CommandParameter="8"/>
-                    <Label Width="150" HorizontalContentAlignment="Center" Content="20 000kč" Canvas.Left="548" Canvas.Top="488"/>
+                    <Label Width="150" HorizontalContentAlignment="Center" Content="2 699kč" Canvas.Left="548" Canvas.Top="488"/>
 
 
 
@@ -88,23 +91,8 @@
             </ScrollViewer>
 
         </TabItem>
-        <TabItem Header="Výpis objednávek" x:Name="vypisTab" Visibility="Visible">
-            <Canvas>
-                <ListView x:Name="listview" Height="317"  Width="766" Canvas.Left="10" Canvas.Top="10">
-                    <ListView.View>
-                        <GridView>
-
-                            <GridViewColumn Width="150" Header="Křestní" DisplayMemberBinding="{Binding Path=krestni}" />
-                            <GridViewColumn Width="150" Header="Prijmeni" DisplayMemberBinding="{Binding Path=prijmeni}" />
-                            <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Path=cena}" />
-                            <GridViewColumn Width="100" Header="Telefon" DisplayMemberBinding="{Binding Path=telefon}"  />
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                <Button Content="Výpis" Click="Button_Click_1" Canvas.Left="639" Canvas.Top="332" Height="49" Width="137"></Button>
-            </Canvas>
-        </TabItem>
-        <TabItem Header="Košík" x:Name="tabKosik">
+        
+        <TabItem Header="Košík" x:Name="tabKosik" Visibility="Hidden">
             <Canvas>
                 <ListView x:Name="listviewKosik" Height="317"  Width="766" Canvas.Left="10" Canvas.Top="10" SelectionChanged="ListviewKosik_SelectionChanged">
                     <ListView.View>
@@ -119,7 +107,23 @@
                 <Button Content="Objednat" Click="Button_Click_Kosik" Canvas.Left="639" Canvas.Top="332" Height="49" Width="137"></Button>
             </Canvas>
         </TabItem>
-        <TabItem Header="Uprava uživatele" x:Name="tabEdit">
+        <TabItem Header="Výpis objednávek" x:Name="vypisTab" Visibility="Hidden">
+            <Canvas>
+                <ListView x:Name="listview" Height="317"  Width="766" Canvas.Left="10" Canvas.Top="10">
+                    <ListView.View>
+                        <GridView>
+
+                            <GridViewColumn Width="50" Header="ID" DisplayMemberBinding="{Binding Path=idobjednavka}" />
+                            <GridViewColumn Width="150" Header="Datum" DisplayMemberBinding="{Binding Path=datum}" />
+                            <GridViewColumn Width="400" Header="Produkty" DisplayMemberBinding="{Binding Path=polozky}" />
+                            <GridViewColumn Width="100" Header="Cena" DisplayMemberBinding="{Binding Path=cena}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button Content="Výpis" Click="Button_Click_1" Canvas.Left="639" Canvas.Top="332" Height="49" Width="137"></Button>
+            </Canvas>
+        </TabItem>
+        <TabItem Header="Uprava uživatele" x:Name="tabEdit" Visibility="Hidden">
             <Canvas>
                 <Label Content="Křestní" Canvas.Left="10" Canvas.Top="10" FontSize="20"/>
                 <TextBox x:Name="eKrestni" Height="35" Canvas.Left="10" TextWrapping="Wrap" Text="" Canvas.Top="44" Width="299" FontSize="15"/>
@@ -129,6 +133,8 @@
                 <TextBox x:Name="eTelefon" Height="35" Canvas.Left="10" TextWrapping="Wrap" Text="" Canvas.Top="226" Width="299" FontSize="15"/>
                 <Label Content="E-Mail" Canvas.Left="10" Canvas.Top="274" FontSize="20"/>
                 <TextBox x:Name="eEmail" Height="35" Canvas.Left="10" TextWrapping="Wrap" Text="" Canvas.Top="308" Width="299" FontSize="15"/>
+                <Label Content="Heslo" Canvas.Left="352" Canvas.Top="274" FontSize="20"/>
+                <TextBox x:Name="eHeslo" Height="35" Canvas.Left="352" TextWrapping="Wrap" Text="" Canvas.Top="308" Width="299" FontSize="15"/>
                 <Button Content="Aktualizovat" Canvas.Left="656" Canvas.Top="335" Width="120" Height="46" Click="Button_Click_3"/>
 
             </Canvas>

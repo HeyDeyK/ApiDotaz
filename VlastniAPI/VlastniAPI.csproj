@@ -66,6 +66,7 @@
     </ApplicationDefinition>
     <Compile Include="CustomControl1.cs" />
     <Compile Include="Objednavka.cs" />
+    <Compile Include="Objednavka2.cs" />
     <Compile Include="Produkt.cs" />
     <Compile Include="Testovani.cs" />
     <Compile Include="Uzivatel.cs" />
